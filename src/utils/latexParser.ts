@@ -227,9 +227,13 @@ export async function assignIds(content: string, environments: string, idListTex
 
   if (questionsToMatch.length > 0 && idList.length > 0) {
     try {
+      const apiKey = localStorage.getItem('GEMINI_API_KEY');
+      const headers: HeadersInit = { 'Content-Type': 'application/json' };
+      if (apiKey) headers['x-api-key'] = apiKey;
+
       const response = await fetch('/api/match-ids', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ questions: questionsToMatch, ids: idList })
       });
       if (response.ok) {

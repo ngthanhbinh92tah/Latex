@@ -6,14 +6,21 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    }
+function getAiClient(req: express.Request) {
+  const userApiKey = req.headers['x-api-key'] as string;
+  const apiKey = userApiKey || process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing API Key. Please provide one in settings.");
   }
-});
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      }
+    }
+  });
+}
 
 async function startServer() {
   const app = express();
@@ -59,7 +66,7 @@ ${questions.map((q: any) => `Question ${q.id}: ${q.content}`).join("\n\n")}
 
 Return a JSON array of matches, where each match has the question 'id' (number) and 'matchedId' (string, just the final substituted ID part).`;
 
-      const response = await ai.models.generateContent({
+      const response = await getAiClient(req).models.generateContent({
         model: "gemini-3.6-flash",
         contents: prompt,
         config: {
@@ -153,7 +160,7 @@ ${specificRules}
 4. Provide a detailed, step-by-step solution wrapped inside \\loigiai{ ... } placed before \\end{ex}.
 5. Only output the LaTeX code. Do not output any markdown formatting like \`\`\`latex or conversational text.${idsPrompt}`;
 
-      const response = await ai.models.generateContent({
+      const response = await getAiClient(req).models.generateContent({
         model: "gemini-3.6-flash",
         contents: [
           prompt,
@@ -286,7 +293,7 @@ ${specificRules}
         });
       }
 
-      const response = await ai.models.generateContent({
+      const response = await getAiClient(req).models.generateContent({
         model: "gemini-3.6-flash",
         contents: parts,
         config: {
