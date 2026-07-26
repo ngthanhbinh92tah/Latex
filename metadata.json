@@ -1,0 +1,8 @@
+{
+  "name": "LaTeX Question Deduplicator",
+  "description": "App để kiểm tra và loại bỏ các câu hỏi trùng lặp trong file LaTeX.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

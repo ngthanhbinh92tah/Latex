@@ -1,0 +1,15 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath,amssymb}
+\newenvironment{ex}{\par\vspace{10pt}\noindent\textbf{Câu hỏi: }}{\par}
+\newcommand{\choice}[4]{\begin{itemize} \item A. #1 \item B. #2 \item C. #3 \item D. #4 \end{itemize}}
+\newcommand{\True}{\textbf{[ĐÚNG]} }
+\newcommand{\loigiai}[1]{\par\noindent\textbf{Lời giải:} #1}
+\begin{document}
+\begin{ex}
+  Tính $1+1$.
+  \choice{1}{2}{3}{\True 4}
+  \loigiai{1+1=2}
+\end{ex}
+\end{document}
