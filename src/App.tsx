@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, FileText, Download, AlertTriangle, CheckCircle, Search, FileUp, Info, Trash2, ShieldCheck, SlidersHorizontal, Eye, Link, Layers, PlusCircle, Image as ImageIcon, Copy, Filter, Settings } from 'lucide-react';
 import { parseLatex, ParseResult, assignIds, AssignIdResult, filterQuestionsByIds, FilterResult } from './latexParser';
-import { DEFAULT_ID_LIST } from './data/defaultIds';
+import { DEFAULT_ID_LIST } from './defaultIds';
 
 export default function App() {
   const [showSettings, setShowSettings] = useState(false);
